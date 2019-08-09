@@ -180,7 +180,6 @@ const
 
 constructor TScrabbleWords.Create(Board: TScrabbleBoard);
 var
-  S: string;
   I: Integer;
 begin
   inherited Create;
@@ -252,7 +251,7 @@ var
   I: Integer;
 begin
   for I := Low(FLines) to High(FLines) do
-    FLines[I] := '';
+    FLines[I] := BlankLine;
   Change;
 end;
 
@@ -260,7 +259,7 @@ procedure TScrabbleWords.Delete(Index: Integer);
 begin
   if (Index < 0) or (Index > 14) then
     Error(SListIndexError, Index);
-  FLines[Index] := '';
+  FLines[Index] := BlankLine;
   Change;
 end;
 
@@ -352,13 +351,13 @@ var
   I, J: Integer;
   S: string;
 begin
-  Clear;
   for I := 0 to 14 do
   begin
     S := FWords[I];
     for J := 1 to Length(S) do
       FCells[J - 1, I] := S[J];
   end;
+  Invalidate;
 end;
 
 procedure TScrabbleBoard.SetWords(Value: TStrings);
@@ -464,13 +463,8 @@ begin
 end;
 
 procedure TScrabbleBoard.Clear;
-var
-  X, Y: Integer;
 begin
-  for X := Low(FCells) to High(FCells) do
-    for Y := Low(FCells[X]) to High(FCells[X]) do
-      FCells[X, Y] := ' ';
-  Invalidate;
+  FWords.Clear;
 end;
 
 function PointInRect(const P: TPoint; const R: TRect): Boolean;
