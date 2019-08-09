@@ -415,8 +415,6 @@ begin
   begin
     FBoardSource := NewBitmap;
     FBoardSource.LoadFromResourceName(HINSTANCE, 'scrabble_board');
-    FBoard := NewBitmap;
-    FBoard.LoadFromResourceName(HINSTANCE, 'scrabble_board');
   end;
   for I := 1 to Length(Letters) do
   begin
@@ -545,7 +543,6 @@ var
   P: TPoint;
 begin
   inherited;
-  WriteLn(Key);
   if not FEditMode then
     Exit;
   if Key = VK_ESCAPE then
